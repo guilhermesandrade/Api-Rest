@@ -5,7 +5,7 @@
     "title": "API Produtos",
     "description": "API REST para gerenciamento de produtos de uma loja"
   },
-  "host": "SEU_LINK_DO_DEPLOY_HEROKU_OU_RAILWAY",
+  "host": "api-rest-production-a402.up.railway.app",
   "basePath": "/",
   "schemes": ["https"],
   "paths": {
