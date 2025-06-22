@@ -20,18 +20,109 @@
       },
       "post": {
         "summary": "Cadastrar novo produto",
-        "parameters": [{
-          "in": "body",
-          "name": "body",
-          "description": "JSON com dados do produto",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/Produto"
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "JSON com dados do produto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Produto"
+            }
           }
-        }],
+        ],
         "responses": {
           "201": {
-            "description": "Produto criado"
+            "description": "Produto criado com sucesso"
+          }
+        }
+      }
+    },
+    "/produtos/{id}": {
+      "get": {
+        "summary": "Buscar produto por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto encontrado"
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar um produto existente",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "JSON com dados atualizados do produto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Produto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto atualizado com sucesso"
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletar um produto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto deletado com sucesso"
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          }
+        }
+      }
+    },
+    "/produtos/nome/{nome}": {
+      "get": {
+        "summary": "Buscar produto por nome",
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto encontrado"
+          },
+          "404": {
+            "description": "Produto não encontrado"
           }
         }
       }
@@ -46,8 +137,10 @@
         "cor": { "type": "string" },
         "peso": { "type": "number" },
         "tipo": { "type": "string" },
-        "preco": { "type": "number" }
-      }
+        "preco": { "type": "number" },
+        "dataCadastro": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nome", "descricao", "preco", "dataCadastro"]
     }
   }
 }
