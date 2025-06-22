@@ -9,7 +9,7 @@
   "basePath": "/",
   "schemes": ["https"],
   "paths": {
-    "/produtos": {
+    "/api/produtos": {
       "get": {
         "summary": "Listar todos os produtos",
         "responses": {
@@ -38,7 +38,7 @@
         }
       }
     },
-    "/produtos/{id}": {
+    "/api/produtos/{id}": {
       "get": {
         "summary": "Buscar produto por ID",
         "parameters": [
@@ -106,7 +106,7 @@
         }
       }
     },
-    "/produtos/nome/{nome}": {
+    "/api/produtos/nome/{nome}": {
       "get": {
         "summary": "Buscar produto por nome",
         "parameters": [
