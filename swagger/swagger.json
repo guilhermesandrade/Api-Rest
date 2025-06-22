@@ -1,0 +1,53 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Produtos",
+    "description": "API REST para gerenciamento de produtos de uma loja"
+  },
+  "host": "SEU_LINK_DO_DEPLOY_HEROKU_OU_RAILWAY",
+  "basePath": "/",
+  "schemes": ["https"],
+  "paths": {
+    "/produtos": {
+      "get": {
+        "summary": "Listar todos os produtos",
+        "responses": {
+          "200": {
+            "description": "Lista de produtos retornada com sucesso"
+          }
+        }
+      },
+      "post": {
+        "summary": "Cadastrar novo produto",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "description": "JSON com dados do produto",
+          "required": true,
+          "schema": {
+            "$ref": "#/definitions/Produto"
+          }
+        }],
+        "responses": {
+          "201": {
+            "description": "Produto criado"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Produto": {
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "descricao": { "type": "string" },
+        "cor": { "type": "string" },
+        "peso": { "type": "number" },
+        "tipo": { "type": "string" },
+        "preco": { "type": "number" }
+      }
+    }
+  }
+}
