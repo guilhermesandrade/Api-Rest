@@ -14,7 +14,13 @@
         "summary": "Listar todos os produtos",
         "responses": {
           "200": {
-            "description": "Lista de produtos retornada com sucesso"
+            "description": "Lista de produtos retornada com sucesso",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Produto"
+              }
+            }
           }
         }
       },
@@ -27,7 +33,7 @@
             "description": "JSON com dados do produto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Produto"
+              "$ref": "#/definitions/ProdutoInput"
             }
           }
         ],
@@ -38,26 +44,39 @@
         }
       }
     },
-    "/api/produtos/{id}": {
+    "/api/produto": {
       "get": {
-        "summary": "Buscar produto por ID",
+        "summary": "Buscar produto por ID ou Nome (query parameters)",
         "parameters": [
           {
             "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "ID do produto"
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Nome do produto"
           }
         ],
         "responses": {
           "200": {
-            "description": "Produto encontrado"
+            "description": "Produto encontrado",
+            "schema": {
+              "$ref": "#/definitions/Produto"
+            }
           },
           "404": {
             "description": "Produto não encontrado"
           }
         }
-      },
+      }
+    },
+    "/api/produtos/{id}": {
       "put": {
         "summary": "Atualizar um produto existente",
         "parameters": [
@@ -65,7 +84,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID do produto"
           },
           {
             "in": "body",
@@ -73,7 +93,7 @@
             "description": "JSON com dados atualizados do produto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Produto"
+              "$ref": "#/definitions/ProdutoInput"
             }
           }
         ],
@@ -93,33 +113,13 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "ID do produto"
           }
         ],
         "responses": {
           "200": {
             "description": "Produto deletado com sucesso"
-          },
-          "404": {
-            "description": "Produto não encontrado"
-          }
-        }
-      }
-    },
-    "/api/produtos/nome/{nome}": {
-      "get": {
-        "summary": "Buscar produto por nome",
-        "parameters": [
-          {
-            "name": "nome",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Produto encontrado"
           },
           "404": {
             "description": "Produto não encontrado"
@@ -132,15 +132,31 @@
     "Produto": {
       "type": "object",
       "properties": {
+        "_id": { "type": "string" },
         "nome": { "type": "string" },
         "descricao": { "type": "string" },
         "cor": { "type": "string" },
         "peso": { "type": "number" },
         "tipo": { "type": "string" },
         "preco": { "type": "number" },
-        "dataCadastro": { "type": "string", "format": "date-time" }
+        "dataCadastro": {
+          "type": "string",
+          "format": "date-time"
+        }
       },
       "required": ["nome", "descricao", "preco", "dataCadastro"]
+    },
+    "ProdutoInput": {
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string" },
+        "descricao": { "type": "string" },
+        "cor": { "type": "string" },
+        "peso": { "type": "number" },
+        "tipo": { "type": "string" },
+        "preco": { "type": "number" }
+      },
+      "required": ["nome", "descricao", "preco"]
     }
   }
 }
